@@ -105,15 +105,8 @@ Verifique:
 maestro --version
 ```
 
-### 4. Crie um teste E2E (ex: `test.yaml`)
+### 4. Criado um teste E2E
 
-```yaml
-appId: com.seuprojeto.app
----
-- launchApp
-- tapOn: "Let's check"
-- assertVisible: "Baby"
-```
 
 ### 5. Execute o teste
 
