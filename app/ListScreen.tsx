@@ -2,7 +2,7 @@ import { Text, StyleSheet, View, FlatList, ScrollView } from 'react-native'
 import React, { Component, useEffect, useState } from 'react'
 import  DATA  from '../constants/DATA.json'
 import { useLocalSearchParams } from 'expo-router';
-import Card from '@/components/Card';
+import Card from '../components/Card';
 
 export default function ListScreen(){
 

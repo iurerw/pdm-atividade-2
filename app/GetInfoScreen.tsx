@@ -9,22 +9,32 @@ export default function GetInfoScreen (){
     
     return (
         <View>
-            <Text style={styles.label}>Baby's Name</Text>
+            <Text 
+                testID='input-name'
+                style={styles.label}>Baby's Name</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={setName}
                 value={name}
                 placeholder="Baby's name"
             />
-            <Text style={styles.label}>How Old?</Text>
+            <Text 
+                style={styles.label}>How Old?</Text>
             <TextInput
+                testID='input-age-months'
                 style={styles.input}
                 onChangeText={(text) => setAge(Number(text))}
                 placeholder="Baby's age"
             />
             <View style={styles.container}>
                 <View style={styles.buttonContainer}>
-                    <Button title="check for vaccine" onPress={() => router.push({pathname:'/ListScreen', params: {name, age}                 })} />
+                    <Button 
+                        testID='check'
+                        title="check for vaccine" 
+                        onPress={() => router.push({
+                            pathname:'/ListScreen', 
+                            params: {name, age}
+                        })} />
                 </View>
             </View>
         </View>

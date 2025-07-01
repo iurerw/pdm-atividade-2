@@ -1,61 +1,131 @@
-# 📱 ShotScheduler
+# 📱 Testes em Aplicações React Native (Expo)
 
-Um aplicativo simples em React Native para controle de vacinas de bebês.  
-A proposta é ajudar pais e responsáveis a acompanhar quais vacinas o bebê **já deveria ter tomado**, com base em sua idade atual (em meses).
+Este projeto utiliza duas ferramentas principais para garantir a qualidade do código:
 
----
-
-## ✨ Funcionalidade
-
-O app recebe:
-
-- 👶 **Nome do bebê**
-- 📅 **Idade do bebê (em meses)**
-
-E retorna:
-
-- 📋 Uma **lista de vacinas** que o bebê já deveria ter tomado até a idade informada.
+- ✅ **Jest**: testes unitários.
+- 🧪 **Maestro**: testes E2E (end-to-end, ou ponta-a-ponta).
 
 ---
 
-## 🧠 Como funciona
+## 🔧 Configuração dos Testes Unitários com Jest
 
-1. O usuário informa o nome e a idade do bebê na tela inicial.
-2. A aplicação filtra automaticamente as vacinas com base na idade.
-3. Mostra na tela as vacinas que já deveriam ter sido aplicadas.
-
-> As vacinas são carregadas a partir de um arquivo JSON com id, nome e idade recomendada para cada dose.
-
----
-
-## 🛠️ Tecnologias utilizadas
-
-- [React Native](https://reactnative.dev/)
-- [Expo Router](https://expo.dev/router)
-- TypeScript
-- `FlatList` para exibição eficiente das vacinas
-- Armazenamento local com JSON (mock de dados)
-
----
-
-## 🧪 Como rodar o projeto
+### 1. Instalação
 
 ```bash
-# Instale as dependências
-yarn install
+yarn add --dev jest jest-expo @testing-library/react-native
+# ou com npm:
+# npm install --save-dev jest jest-expo @testing-library/react-native
+```
 
-# Rode com o Expo
-yarn android
+### 2. Configuração no `package.json`
 
+```json
+"jest": {
+  "preset": "jest-expo",
+  "transformIgnorePatterns": [
+    "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)"
+  ]
+}
+```
+
+### 3. Usando Alias `@/`
+
+No `tsconfig.json`:
+
+```json
+"compilerOptions": {
+  "baseUrl": ".",
+  "paths": {
+    "@/*": ["./*"]
+  }
+}
+```
+
+No `jest.config.js` (ou dentro do `"jest"`):
+
+```js
+module.exports = {
+  preset: 'jest-expo',
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/$1'
+  }
+}
+```
+
+### 4. Rodar os testes
+
+```bash
+npx jest
+# ou para rodar teste específico:
+npx jest __tests__/Main.test.tsx
 ```
 
 ---
 
-## ScreenShots
+## 🤖 Testes End-to-End com Maestro
 
-![Screenshot from 2025-05-21 00-08-44](https://github.com/user-attachments/assets/e7a9896c-ae13-4704-bfbd-425800bcbd3f)
+### 1. Instale o Java (Ubuntu)
 
-![Screenshot from 2025-05-21 00-09-01](https://github.com/user-attachments/assets/bfad33da-ff79-4c7b-97b5-afc6f8e6fa15)
+```bash
+sudo apt update
+sudo apt install openjdk-21-jdk
+```
 
-![Screenshot from 2025-05-21 00-09-14](https://github.com/user-attachments/assets/2aeb8231-6e65-4452-8da2-cdfa2a69913e)
+Verifique:
 
+```bash
+java -version
+```
+
+### 2. Configure o JAVA_HOME
+
+Adicione ao `~/.bashrc`:
+
+```bash
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+Depois, atualize com:
+
+```bash
+source ~/.bashrc
+```
+
+### 3. Instale o Maestro
+
+```bash
+curl -Ls "https://get.maestro.mobile.dev" | bash
+export PATH="$PATH:$HOME/.maestro/bin"
+```
+
+Verifique:
+
+```bash
+maestro --version
+```
+
+### 4. Crie um teste E2E (ex: `test.yaml`)
+
+```yaml
+appId: com.seuprojeto.app
+---
+- launchApp
+- tapOn: "Let's check"
+- assertVisible: "Baby"
+```
+
+### 5. Execute o teste
+
+```bash
+maestro test test.yaml
+```
+
+---
+
+## 🧠 Diferença entre Teste Unitário e Teste E2E
+
+Testes unitarios, como o proprio nome ja diz serve para rodar testes em unidades, em funcoes, componentes, ou ate mesmo hooks
+Ja o teste E2E simula a experiencia de um usuario usando o aplicativo, podendo experimentar o comportamento real do aplicativo. 
+
+---

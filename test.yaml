@@ -1,0 +1,13 @@
+appId: com.atividadeAvaliativa2.app
+---
+- openLink: exp://127.0.0.1:8081
+- tapOn:
+    id: letsCheck
+- tapOn:
+    id: input-name
+- inputText: "Baby Thomas"
+- tapOn: 
+    id: input-age-months
+- inputText: "15"
+- tapOn:
+    id: check
